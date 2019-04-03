@@ -22,7 +22,7 @@ steps:
     command: build
     projects: '**/pipelines-dotnet-core.csproj'
     arguments: '--configuration Release' # Update this to match your need
-- task: Tests@2
+- task: DotNetCoreCLI@2
   displayName: Tests
   inputs:
     command: test
