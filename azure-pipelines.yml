@@ -23,7 +23,7 @@ steps:
     projects: '**/pipelines-dotnet-core.csproj'
     arguments: '--configuration Release' # Update this to match your need
 - task: Tests
-  displayName: Tests
+  displayName: Tests@2
   inputs:
     command: test
     projects: '**/tests/Tests.Core/Tests.Core.csproj' 
