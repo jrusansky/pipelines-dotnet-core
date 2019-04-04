@@ -21,7 +21,7 @@ namespace TestNotBuildApp.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return "value"
         }
 
         // POST api/values
