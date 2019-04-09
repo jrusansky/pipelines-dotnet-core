@@ -62,4 +62,7 @@
     <Build Include="Tables\superhero.sql" />
     <Build Include="Tables\superpower.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="DataBase.publish.xml" />
+  </ItemGroup>
 </Project>
