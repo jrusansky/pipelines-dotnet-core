@@ -14,18 +14,43 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  apiProjectFilePath: 'pipelines-dotnet-core.csproj'
+  dbProjectFilePath: 'DataBase/DataBase.sqlproj'
+  dbProjectFolderPath: 'DataBase/'
 
 steps:
 - script: dotnet restore tests/Tests.Core/Tests.Core.csproj
-- task: DotNetCoreCLI@2
-  displayName: Build $(buildConfiguration)
+#- task: DotNetCoreCLI@2
+#  displayName: Build $(buildConfiguration)
+#  inputs:
+#    command: build
+#    projects: '**/pipelines-dotnet-core.csproj'
+#    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
+#- task: DotNetCoreCLI@2
+#  displayName: Tests
+#  inputs:
+#    command: test
+#    projects: '**/tests/Tests.Core/Tests.Core.csproj' 
+#    arguments: '--configuration $(buildConfiguration) --filter TestCategory="Api"'
+    
+- task: VSBuild@1
+  displayName: Build API $(buildConfiguration)
   inputs:
     command: build
-    projects: '**/pipelines-dotnet-core.csproj'
-    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
-- task: DotNetCoreCLI@2
-  displayName: Tests
+    solution: '$(apiProjectFilePath)'
+    configuration: $(buildConfiguration)
+    msbuildArgs: '/p:OutDir=$(build.artifactstagingdirectory)'
+
+- task: VSBuild@1
+  displayName: Build DB $(buildConfiguration)
   inputs:
-    command: test
-    projects: '**/tests/Tests.Core/Tests.Core.csproj' 
-    arguments: '--configuration $(buildConfiguration) --filter TestCategory="Api"'
+    command: build
+    solution: '$(dbProjectFilePath)'
+    configuration: $(buildConfiguration)
+    msbuildArgs: '/p:OutDir=$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+  inputs:
+    PathtoPublish: $(build.artifactstagingdirectory)
+    ArtifactName: 'PublishBuildArtifacts'
