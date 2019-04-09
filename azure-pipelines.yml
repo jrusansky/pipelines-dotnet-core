@@ -19,7 +19,7 @@ variables:
   dbProjectFolderPath: 'DataBase/'
 
 steps:
-- script: dotnet restore tests/Tests.Core/Tests.Core.csproj
+- script: dotnet restore $(apiProjectFilePath)
 #- task: DotNetCoreCLI@2
 #  displayName: Build $(buildConfiguration)
 #  inputs:
@@ -54,3 +54,5 @@ steps:
   inputs:
     PathtoPublish: $(build.artifactstagingdirectory)
     ArtifactName: 'PublishBuildArtifacts'
+        
+#- script: dotnet publish $(dbProjectFilePath) --configuration $(buildConfiguration)
