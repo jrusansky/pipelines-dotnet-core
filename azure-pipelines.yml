@@ -54,5 +54,3 @@ steps:
   inputs:
     PathtoPublish: $(build.artifactstagingdirectory)
     ArtifactName: 'PublishBuildArtifacts'
-        
-- script: dotnet publish $(dbProjectFilePath) --configuration $(buildConfiguration)
