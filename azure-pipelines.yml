@@ -55,4 +55,4 @@ steps:
     PathtoPublish: $(build.artifactstagingdirectory)
     ArtifactName: 'PublishBuildArtifacts'
 
-- script: dotnet publish $(dbProjectFilePath) --configuration $(buildConfiguration)
+- script: SqlPackage action: publish sourceFile: $(build.artifactstagingdirectory)/DataBase.dacpac profile: DataBase.publish.xml
